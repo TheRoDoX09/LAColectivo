@@ -19,15 +19,17 @@ npm install
 ## 2. Configurar Supabase
 
 1. Crea un proyecto en [supabase.com](https://supabase.com) (gratis).
-2. Ve a **SQL Editor** → pega y ejecuta todo el contenido de `supabase_schema.sql`.
-3. Pega y ejecuta también `supabase_migration_v2.sql` (agrega categorías,
-   subcategorías, variantes de producto y cantidades — ya viene con las
-   categorías del colectivo precargadas).
+2. En **SQL Editor**, crea las tablas que usa la app (no hay un archivo de
+   schema en este repo todavía, hay que crearlas a mano):
+   `categorias`, `subcategorias`, `sub_subcategorias`, `productos`,
+   `producto_variantes`, `pedidos` y `espacios_renta`.
+3. En **Storage**, crea un bucket público llamado `imagenes` (ahí se suben
+   las fotos de productos y espacios).
 4. Ve a **Authentication → Users → Add user** y crea el usuario del dueño
    (correo + contraseña). Esa cuenta es el único acceso al panel admin.
 5. Copia tu `Project URL` y tu `anon / publishable key` desde
    **Settings → API**.
-6. Crea un archivo `.env` en la raíz del proyecto (usa `.env.example` como base):
+6. Crea un archivo `.env` en la raíz del proyecto con:
 
 ```
 VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
@@ -53,17 +55,14 @@ Desde ahí puedes:
 
 ## 5. Logotipo
 
-Mientras no haya logotipo definitivo, se muestra un marcador de posición
-(`src/components/Logo.jsx`). Cuando el cliente lo entregue:
+Ya integrado con los archivos reales del colectivo:
 
-1. Coloca el archivo en `public/logo.svg` (o `.png`)
-2. Reemplaza el contenido de `Logo.jsx` por `<img src="/logo.svg" alt="LA Colectivo" />`
+public/logo-icon.png → sello circular solo (navbar, footer, panel admin, favicon)
+public/logo-full.png → sello + "COLECTIVO" (hero de Home)
+
+Se usan a través de src/components/Logo.jsx con la prop variant="icon" (por defecto) o variant="full".
 
 ## 6. Contenido ya cargado
 
 - `src/lib/constants.js` → ya tiene Instagram, TikTok, Facebook, correo y teléfono reales
-- Categorías y subcategorías del colectivo ya vienen precargadas por `supabase_migration_v2.sql`
-
-## 7. Pendiente
-
-- `src/components/Footer.jsx` → agrega la dirección y horario reales del local
+- `src/components/Footer.jsx` → ya tiene la dirección y horario reales del local
